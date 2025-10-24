@@ -4,10 +4,17 @@ This is the JS API for the SuperFive.io gaming platform where players can compet
 
 ## API usage
 
+In general adpating your game isn't gonna be much work. You only have to listen to a few events, consider some states and send a ``game_ready``.
+
+### Quick example
+
 ```js
 import {
   isInPlatformMode,
-  subscribeToPlatformMessages
+  subscribeToPlatformMessages,
+  sendReady,
+  sendWin,
+  sendLose,
 } from 'com.superfive.js'
 
 // Check if the platform is loading this game
@@ -20,10 +27,29 @@ if (isInPlatformMode()) {
     const { type } = customEvent.detail;
 
     if (type === 'game_restart') {
-      this.yourRestartGame();
+      yourStartGame();
     }
   });
 
+  create() {
+    // As soon as the game is loaded and ready to play send the 'ready event'
+    sendReady();
+  }
+
+  yourStartGame() {
+    // The user on the plafrom clicked "Start Game" ...
+    // Your game should run now / play sound effects etc
+  }
+
+  onWin() {
+    // If the player wins, pause the game, mute all sounds and let the platform know:
+    sendWin();
+  }
+
+  onLose() {
+    // If the player loses, pause the game, mute all sounds and let the platform know:
+    sendLose();
+  }
 }
 ```
 
