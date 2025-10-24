@@ -16,7 +16,8 @@ export default defineConfig({
       }
     },
     sourcemap: true,
-    minify: false
+    minify: false,
+    emptyOutDir: false
   },
   define: {
     'process.env.NODE_ENV': '"production"'
