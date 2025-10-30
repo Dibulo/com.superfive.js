@@ -1,8 +1,34 @@
 import type { PlatformMessage } from './types.ts';
 
+/**
+ * Get a parameter from the hash (!#p=1&difficulty=2&muted=1)
+ *
+ * @param key The key of the parameter
+ * @returns The value of the parameter or null if the parameter is not found
+ */
+function getHashParams(key: string): string | null {
+  const hash = window.location.hash.replace(/^#!?/, '')
+  return new URLSearchParams(hash).get(key);
+}
+
+/**
+ * Get a parameter from the url (?p=1&difficulty=2&muted=1)
+ *
+ * @param key The key of the parameter
+ * @returns The value of the parameter or null if the parameter is not found
+ */
 function getUrlParam(name: string): string | null {
-  const urlParams = new URLSearchParams(window.location.search);
-  return urlParams.get(name);
+  return new URLSearchParams(window.location.search).get(name);
+}
+
+/**
+ * Get a parameter from the platform
+ *
+ * @param key The key of the parameter
+ * @returns The value of the parameter or null if the parameter is not found
+ */
+export function getPlatformParam(key: string): string | null {
+  return getHashParams(key) || getUrlParam(key);
 }
 
 /**
@@ -11,7 +37,7 @@ function getUrlParam(name: string): string | null {
  * @returns True if the game is in platform mode, false otherwise
  */
 export function isInPlatformMode(): boolean {
-  return getUrlParam('p') === '1';
+  return getPlatformParam('p') === '1';
 }
 
 /**
@@ -20,7 +46,7 @@ export function isInPlatformMode(): boolean {
  * @returns True if the game should start muted, false otherwise
  */
 export function startMuted(): boolean {
-  return getUrlParam('muted') === '1';
+  return getPlatformParam('muted') === '1';
 }
 
 /**
@@ -34,7 +60,7 @@ export function startMuted(): boolean {
  * @returns The difficulty of the game as a number between 0 and 2
  */
 export function getDifficulty(): number {
-  return parseInt(getUrlParam('difficulty') || '0', 10);
+  return parseInt(getPlatformParam('difficulty') || '0', 10);
 }
 
 // ==============================================================
