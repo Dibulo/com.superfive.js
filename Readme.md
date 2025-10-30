@@ -222,8 +222,21 @@ type PlatformMessageType =
 
 # Game development
 
+If your game is already hosted somewhere, send us the link (dev@superfive.io).
+As we strive for quality we can not accept any game.
+
+## Best practices
+
 - The game should work in portrait (9:16)
 - The game should work on desktop (mouse input) and mobile (touch input)
 - The game should not start unless it receives the ``game_restart`` message from the platform
 - The game should not play any music - only sound effects (the platform plays music)
+- Make sure your game loads fast. We are trying to cater to people globally and everyone should be able to play.
 - The game can have different difficulty levels (0 = 'Easy', 1 = 'Medium', 2 = 'Hard').
+
+## Release
+
+As for now we do not have any games store or games simulator to test the game integration.
+Send us a static build of your game and we host it on our cloud.
+
+Contact dev@superfive.io
