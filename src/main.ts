@@ -119,7 +119,12 @@ function handlePlatformMessage(event: MessageEvent): void {
  */
 export function sendPlatformMessage(type: PlatformMessage['type'], payload?: any): void {
   if (!isInPlatformMode()) return;
-  const message: PlatformMessage = { type, payload, eventKey: getPlatformParam('key') || undefined };
+  const message: PlatformMessage = { 
+    type,
+    payload,
+    eventKey: getPlatformParam('key') || undefined,
+    version: __APP_VERSION__,
+  };
   window.parent.postMessage(message, '*');
 }
 
